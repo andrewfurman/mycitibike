@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="myrides.js"></script>
+		<script src="script.js"></script>
+		<script src="stations.js"></script>
+		    <style>
+		      html, body, #map-canvas {
+		        height: 95%;
+				width: 95%;
+		      }
+		    </style>
+		    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+		    <script>
+		function loadMap() {
+		  var mapOptions = {
+		    zoom: 13,
+		    center: new google.maps.LatLng(40.71850211,-73.98329859),
+		    mapTypeId: google.maps.MapTypeId.TERRAIN
+		  };
+
+		  var map = new google.maps.Map(document.getElementById('map-canvas'),
+		      mapOptions);
+		for(var i = 0; i<200; i++){
+			var flightPlanCoordinates = [
+			    new google.maps.LatLng(rides[i].StartLatitude,rides[i].StartLongitude),
+			    new google.maps.LatLng(rides[i].EndLatitude,rides[i].EndLongitude)
+			  ];
+			  var flightPath = new google.maps.Polyline({
+			    path: flightPlanCoordinates,
+			    geodesic: true,
+			    strokeColor: '#FF0000',
+			    strokeOpacity: 1.0,
+			    strokeWeight: 1
+			  });
+			  flightPath.setMap(map);
+		}
+		}
+		</script>
+    </head>
+
+    <body>
+        <p><a href="map.html"> map</a><a href="table.html"> table</a><a href="soul.html"> soul</a></p>
+		<div id="map-canvas"></div>
+		<div id="rides"></div>
+		<div id ="jsonOutput"></div>
+		<div id="resultDivContainer"></div>
+    </body>
+</html>
+
